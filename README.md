@@ -5,7 +5,7 @@ CS602 Final Project - A Shopping Cart Program
 No longer need a separate server and go to the folder frontend run `npm start` to start the client since it is now both run concurrently.
 
 > npm install --save concurrently
-added the following script in `package.json` of the backend file:
+- added the following script in `package.json` of the backend file:
 ```js
 "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
