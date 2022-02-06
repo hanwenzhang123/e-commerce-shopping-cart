@@ -14,7 +14,7 @@ CS602 Final Project: A Shopping Cart Program
 > npm install --save concurrently
 - added the following script in `package.json` of the backend file:
 
-```js
+```json
 "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
@@ -22,8 +22,15 @@ CS602 Final Project: A Shopping Cart Program
     "start": "concurrently \"npm run dev\" \"npm run client\""
 },
 ```
-```js
+```json
  "dependencies": {
      "concurrently": "^7.0.0",
  }
  ```
+ 
+- added the following script in `package.json` of the frontend folder:
+```json
+{
+  "proxy": "http://localhost:3001",
+}
+```
