@@ -1,41 +1,34 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const User = "./models/userDB.js";
+const Product = "./models/productDB.js";
 // const session = require("express-session");
 
 const credentials = require("./credentials.js");
 const app = express();
+require("dotenv").config();
 
 const dbUrl =
-  "mongodb+srv://" +
+  "mongodb://" +
   credentials.username +
   ":" +
   credentials.password +
   "@" +
-  credentials.altasDB +
+  credentials.host +
+  ":" +
+  credentials.port +
   "/" +
   credentials.database;
 
-// const dbUrl =
-//   "mongodb://" +
-//   credentials.username +
-//   ":" +
-//   credentials.password +
-//   "@" +
-//   credentials.host +
-//   ":" +
-//   credentials.port +
-//   "/" +
-//   credentials.database;
-
-// mongoose
-//   .connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => {
-//     console.log("MONGO CONNECTION OPEN!!!");
-//   })
-//   .catch((err) => {
-//     console.log("OH NO MONGO CONNECTION ERROR!!!!");
-//     console.log(err);
-//   });
+mongoose
+  .connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("MONGO CONNECTION OPEN!!!");
+  })
+  .catch((err) => {
+    console.log("OH NO MONGO CONNECTION ERROR!!!!");
+    console.log(err);
+  });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
