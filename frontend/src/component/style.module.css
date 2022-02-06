@@ -1,0 +1,46 @@
+.navigation {
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(44, 226, 165);
+    height: 75px;
+}
+
+.searchBar {
+    background-color: white;
+    border-radius: 30px;
+    padding: 0px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 360px;
+}
+
+.searchBar input {
+    border-width: 0px;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 30px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.searchIcon,
+.personIcon,
+.shoppingCart {
+    cursor: pointer;
+}
+
+.iconLeft {
+    position: absolute;
+    left: 5%;
+    top: 35%;
+}
+
+.iconRight {
+    position: absolute;
+    right: 5%;
+    top: 35%;
+}
