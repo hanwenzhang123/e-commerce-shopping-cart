@@ -6,6 +6,7 @@ const Container = styled.div`
   align-items: center;
   height: 100%;
   padding: 30px 50px 30px 50px;
+  flex-direction: column;
 `;
 
 const FormContainer = styled.div`

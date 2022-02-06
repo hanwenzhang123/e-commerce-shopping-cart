@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { FormContainer } from "../UI/CommonStyle.js";
 import Input from "../component/Input.js";
 
@@ -22,7 +23,10 @@ export default function CreateUser() {
         <Input label="Email" id="email" type="email" />
         <Input label="Password" id="password" type="password" />
         <input type="submit" value="Submit" />
-        <p>Note: You have to log in in order to add a new product!</p>
+        <p style={{ margin: "20px" }}>
+          Note: You have to log in in order to add a new product!
+        </p>
+        <Link to="/">Go to Home Page</Link>
       </FormContainer>
     </form>
   );
