@@ -27,3 +27,10 @@ CS602 Final Project: A Shopping Cart Program
      "concurrently": "^7.0.0",
  }
  ```
+ 
+- added the following script in `package.json` of the frontend folder:
+```json
+{
+  "proxy": "http://localhost:3001",
+}
+```
