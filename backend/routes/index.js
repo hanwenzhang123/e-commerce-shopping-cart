@@ -4,6 +4,11 @@ const router = express.Router();
 const User = require("../models/userDB.js");
 const Product = require("../models/productDB.js");
 
+//Routes
+const displayAllProducts = require("./displayAllProducts.js");
+const createNewProduct = require("./createNewProduct.js");
+const createNewUser = require("./createNewUser.js");
+
 // const bcrypt = require("bcrypt");
 
 const requireLogin = (req, res, next) => {
@@ -13,26 +18,7 @@ const requireLogin = (req, res, next) => {
   next();
 };
 
-router.get("/", async (req, res) => {
-  try {
-    let products = await Product.find({});
-
-    let results = products.map((each) => {
-      return {
-        id: each._id,
-        title: each.title,
-        description: each.description,
-        quantity: each.quantity,
-        price: each.price,
-      };
-    });
-
-    res.json(results);
-  } catch (error) {
-    console.log(error);
-    res.render("404");
-  }
-});
+router.get("/", displayAllProducts);
 
 router.get("/product/:id", async (req, res) => {
   try {
@@ -42,5 +28,9 @@ router.get("/product/:id", async (req, res) => {
     res.render("404");
   }
 });
+
+router.post("/product", createNewProduct);
+
+router.post("/user", createNewUser);
 
 module.exports = router;

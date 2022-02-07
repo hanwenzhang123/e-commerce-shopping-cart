@@ -2,11 +2,17 @@
     "name": "backend",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "app.js",
+    "proxy": {
+        "/api": {
+            "target": "http://0.0.0.0:3001",
+            "secure": false
+        }
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon app.js",
-        "client": "cd .. && cd frontend && npm start",
+        "dev": "nodemon app.js  --ignore client",
+        "client": "cd .. && cd frontend && npm start --prefix client",
         "start": "concurrently \"npm run dev\" \"npm run client\""
     },
     "author": "",

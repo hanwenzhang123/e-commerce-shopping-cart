@@ -5,7 +5,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import classes from "./style.module.css";
 
 export default function Navbar(props) {
-  const { isLogin } = props;
+  const { isLogin, cartCount } = props;
 
   const handleChange = (e) => {
     console.log(e.target.value);
@@ -37,6 +37,16 @@ export default function Navbar(props) {
         <SearchIcon className={classes.searchIcon} />
       </div>
       <div className={classes.iconRight}>
+        <p
+          style={{
+            right: "30px",
+            top: "3px",
+            display: "inline",
+            position: "absolute",
+          }}
+        >
+          {cartCount}
+        </p>
         <ShoppingCartIcon
           className={classes.shoppingCart}
           onClick={shoppingCartHandler}

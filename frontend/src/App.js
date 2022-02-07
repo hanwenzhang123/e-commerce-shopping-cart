@@ -11,14 +11,24 @@ import UserInfo from "./page/UserInfo.js";
 
 function App() {
   const [isLogin, setIsLogin] = useState(true);
-  const [shoppingCartItem, setShoppingCartItem] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
 
   return (
     <React.Fragment>
-      <Navbar isLogin={isLogin} />
+      <Navbar isLogin={isLogin} cartCount={cartCount} />
       <Router>
         <Routes>
-          <Route exact path="/" element={<Homepage isLogin={isLogin} />} />
+          <Route
+            exact
+            path="/"
+            element={
+              <Homepage
+                isLogin={isLogin}
+                cartCount={cartCount}
+                setCartCount={setCartCount}
+              />
+            }
+          />
           <Route exact path="/product" element={<Product />} />
           <Route
             path="/user"

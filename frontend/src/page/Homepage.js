@@ -6,7 +6,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AddIcon from "@mui/icons-material/Add";
 
 export default function Homepage(props) {
-  const { isLogin } = props;
+  const { isLogin, cartCount, setCartCount } = props;
   const [loading, setLoading] = useState(false);
   const [initialState, setInitialState] = useState([]);
 
@@ -38,8 +38,13 @@ export default function Homepage(props) {
     loadData();
   }, []);
 
+  useEffect(() => {
+    console.log(initialState);
+  }, [initialState]);
+
   const handleClick = (id) => {
     console.log(id);
+    setCartCount(cartCount + 1);
   };
 
   const handleAddClick = () => {
@@ -88,6 +93,7 @@ export default function Homepage(props) {
                   </ul>
                   <AddShoppingCartIcon
                     style={{ position: "relative", left: "120px", top: "20px" }}
+                    onClick={() => handleClick(each.id)}
                   />
                 </Card>
               );

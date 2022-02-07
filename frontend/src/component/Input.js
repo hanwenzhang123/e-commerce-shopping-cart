@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 
 export default function Input(props) {
-  const { label, type, id, placeholder } = props;
-
-  const [value, setValue] = useState("");
-
-  const handleChange = (e) => {
-    let temp = e.target.value;
-    console.log(temp);
-    setValue(temp);
-  };
+  const { label, type, id, min, step, value, placeholder, handleChange } =
+    props;
 
   return (
     <React.Fragment>
@@ -17,6 +10,8 @@ export default function Input(props) {
       <input
         id={id}
         type={type}
+        min={min}
+        step={step}
         value={value}
         placeholder={placeholder}
         onChange={handleChange}
