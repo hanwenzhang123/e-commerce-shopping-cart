@@ -10,14 +10,15 @@ import CreateUser from "./page/CreateUser.js";
 import UserInfo from "./page/UserInfo.js";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const [shoppingCartItem, setShoppingCartItem] = useState([]);
 
   return (
     <React.Fragment>
       <Navbar isLogin={isLogin} />
       <Router>
         <Routes>
-          <Route exact path="/" element={<Homepage />} />
+          <Route exact path="/" element={<Homepage isLogin={isLogin} />} />
           <Route exact path="/product" element={<Product />} />
           <Route
             path="/user"

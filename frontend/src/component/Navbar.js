@@ -23,7 +23,9 @@ export default function Navbar(props) {
     <nav className={classes.navigation}>
       <div className={classes.iconLeft}>
         <PersonIcon className={classes.personIcon} onClick={userHandler} />
-        {isLogin && <p>logged in</p>}
+        {isLogin && (
+          <p style={{ marginLeft: "10px", display: "inline" }}>logged in</p>
+        )}
       </div>
       <div className={classes.searchBar}>
         <input

@@ -34,6 +34,9 @@
 }
 
 .iconLeft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     left: 5%;
     top: 35%;
