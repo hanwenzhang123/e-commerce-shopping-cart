@@ -34,3 +34,9 @@ CS602 Final Project: A Shopping Cart Program
   "proxy": "http://localhost:3001",
 }
 ```
+
+## If Error Occurs
+- Node / Express: EADDRINUSE, Address already in use - Kill server
+> sudo lsof -i :3001\
+> kill -9 {PID}
+ 
