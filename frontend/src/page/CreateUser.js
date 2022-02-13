@@ -7,7 +7,6 @@ import { UserConstant } from "../store/constant";
 import Input from "../component/Input.js";
 
 export default function CreateUser(props) {
-  const { setIsLogin } = props;
   const [data, setData] = useState(UserConstant);
 
   useEffect(() => {
@@ -23,20 +22,13 @@ export default function CreateUser(props) {
         lname: data.lname,
         email: data.email,
         secret: data.secret,
-      })
-        .then((res) => {
-          console.log(res);
-          alert("You have signed up successfully, you are now signed in");
-          setData(UserConstant);
-          setIsLogin(true);
-          window.location = "/";
-        })
-        .catch((e) => {
-          alert("Something goes wrong, please check");
-          console.log(e);
-        });
+      }).then((res) => {
+        alert("You have created a new user successfully!");
+        window.location = "/";
+        setData(UserConstant);
+      });
     } catch (e) {
-      alert("Something goes wrong, please check");
+      alert("Something goes wrong, please check!");
       console.log(e);
     }
   };

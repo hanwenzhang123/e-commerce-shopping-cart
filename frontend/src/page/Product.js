@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Axios from "axios";
+// import Axios from "axios";
 
 import { FormContainer } from "../UI/CommonStyle.js";
 import { ProductConstant } from "../store/constant";
@@ -19,20 +19,15 @@ export default function Product() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-        redirect: "/",
-      })
-        .then((response) => {
-          alert("You have created a new product successfully");
+      }).then((res) => {
+        if (res.ok) {
+          alert("You have created a new product successfully!");
+          window.location = "/";
           setData(ProductConstant);
-          response.json();
-        })
-        .then((data) => {
-          console.log("Success:", data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+        }
+      });
     } catch (e) {
+      alert("Something goes wrong, please check!");
       console.log(e);
     }
   };

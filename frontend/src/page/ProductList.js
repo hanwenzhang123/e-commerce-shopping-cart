@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Axios from "axios";
 
 import Input from "../component/Input.js";
@@ -89,16 +89,13 @@ export default function ProductList() {
         description: tempInfo.description,
         quantity: tempInfo.quantity,
         price: tempInfo.price,
-      })
-        .then((res) => {
-          window.location = "/";
-          alert("You have saved the edited product successfully");
-        })
-        .catch((err) => {
-          alert("Something goes wrong, please check");
-        });
+      }).then((res) => {
+        // window.location = "/";
+        window.location.reload();
+        alert("You have saved the edited product successfully!");
+      });
     } catch (e) {
-      alert("Something goes wrong, please check");
+      alert("Something goes wrong, please check!");
       console.log(e);
     }
   };
@@ -106,19 +103,15 @@ export default function ProductList() {
   const deleteProduct = async (id) => {
     try {
       const url = "/api/product/delete/" + id;
-      await Axios.post(url)
-        .then((res) => {
-          window.location = "/";
-          alert("You have deleted the product successfully");
-          // if (res.data.redirect === "/") {
-          //   window.location = "/";
-          // }
-        })
-        .catch((err) => {
-          alert("Something goes wrong, please check");
-        });
+      await Axios.delete(url).then((res) => {
+        window.location = "/";
+        alert("You have deleted the product successfully!");
+        // if (res.data.redirect === "/") {
+        //   window.location = "/";
+        // }
+      });
     } catch (e) {
-      alert("Something goes wrong, please check");
+      alert("Something goes wrong, please check!");
       console.log(e);
     }
   };

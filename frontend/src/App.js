@@ -12,7 +12,7 @@ import UserInfo from "./page/UserInfo.js";
 import ProductList from "./page/ProductList.js";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [search, setSearch] = useState("");
   const [cartCount, setCartCount] = useState(0);
 
@@ -37,7 +37,13 @@ function App() {
         <Route
           exact
           path="/user"
-          element={isLogin ? <UserInfo /> : <Navigate to="/signup" />}
+          element={
+            isLogin ? (
+              <UserInfo setIsLogin={setIsLogin} />
+            ) : (
+              <Navigate to="/signup" />
+            )
+          }
         />
         <Route
           exact

@@ -4,9 +4,11 @@ import Card from "../UI/Card.js";
 import { Container, Button } from "../UI/CommonStyle.js";
 import Spinner from "../UI/Spinner.js";
 
-export default function UserInfo() {
+export default function UserInfo(props) {
   const [loading, setLoading] = useState(false);
   const [userState, setUserState] = useState([]);
+
+  const { setIsLogin } = props;
 
   const fetchData = async () => {
     try {
@@ -40,6 +42,10 @@ export default function UserInfo() {
     window.location = "/signup";
   };
 
+  const handleLogout = () => {
+    setIsLogin(false);
+  };
+
   return (
     <React.Fragment>
       <Container>
@@ -67,13 +73,13 @@ export default function UserInfo() {
           })}
         <div style={{ width: "30%" }}>
           <Button onClick={handleCreateUser}>Create User</Button>
-          <Button>Log out</Button>
+          <Button onClick={handleLogout}>Log out</Button>
         </div>
 
         <p style={{ margin: "30px" }}>
           Below are all the user info in the system
         </p>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "inline" }}>
           {userState.length > 0 &&
             userState.map((each, index) => {
               return (

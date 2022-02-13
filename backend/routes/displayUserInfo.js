@@ -3,7 +3,6 @@ const User = require("../models/userDB.js");
 const displayUserInfo = async (req, res) => {
   try {
     let users = await User.find({});
-    console.log(users);
 
     let results = users.map((each) => {
       return {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import Axios from "axios";
+// import Axios from "axios";
 
 import { FormContainer } from "../UI/CommonStyle.js";
 import { UserConstant } from "../store/constant";
@@ -31,10 +31,10 @@ export default function CreateUser(props) {
     //   .catch((e) => {
     //     console.log(e);
     //   });
-    // alert("You have signed in successfully");
-    // setData(UserConstant);
-    // window.location = "/";
+    alert("You have signed in successfully!");
+    setData(UserConstant);
     setIsLogin(true);
+    window.location = "/";
   };
 
   const handleChange = (e) => {
@@ -60,7 +60,7 @@ export default function CreateUser(props) {
         <Input
           label="Secret"
           id="secret"
-          type="secret"
+          type="password"
           value={data["secret"]}
           handleChange={handleChange}
         />
