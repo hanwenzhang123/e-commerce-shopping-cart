@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import Navbar from "./component/Navbar.js";
 import Homepage from "./page/Homepage.js";
@@ -34,12 +34,18 @@ function App() {
         />
         <Route exact path="/product" element={<Product />} />
         <Route path="/product/:id" element={<ProductList />} />
-        <Route path="/user" element={<UserInfo />} />
         <Route
+          exact
+          path="/user"
+          element={isLogin ? <UserInfo /> : <Navigate to="/signup" />}
+        />
+        <Route
+          exact
           path="/signup"
           element={<CreateUser setIsLogin={setIsLogin} />}
         />
         <Route
+          exact
           path="/signin"
           element={<SigninUser setIsLogin={setIsLogin} />}
         />

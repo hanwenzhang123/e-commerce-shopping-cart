@@ -55,7 +55,7 @@ export default function Homepage(props) {
   }, [search, initialState]);
 
   const handleClick = (id) => {
-    window.location.href = "/product/" + id;
+    window.location = "/product/" + id;
   };
 
   const addToCart = (id) => {
@@ -64,7 +64,7 @@ export default function Homepage(props) {
   };
 
   const handleAddClick = () => {
-    window.location.href = "/product";
+    window.location = "/product";
   };
 
   return (

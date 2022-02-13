@@ -16,6 +16,7 @@ const createNewProduct = async (req, res) => {
 
   try {
     await newUser.save();
+    res.json("You have created a new user successfully");
     // req.session.user_id = newUser._id;
   } catch (error) {
     console.log(error);

@@ -14,14 +14,14 @@ export default function Navbar(props) {
 
   const userHandler = () => {
     if (isLogin) {
-      window.location.href = "/user";
+      window.location = "/user";
     } else {
-      window.location.href = "/signup";
+      window.location = "/signup";
     }
   };
 
   const shoppingCartHandler = (e) => {
-    window.location.href = "/cart";
+    window.location = "/cart";
   };
 
   return (

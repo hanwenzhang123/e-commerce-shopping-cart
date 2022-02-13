@@ -33,7 +33,7 @@ export default function CreateUser(props) {
     //   });
     // alert("You have signed in successfully");
     // setData(UserConstant);
-    // window.location.href = "/";
+    // window.location = "/";
     setIsLogin(true);
   };
 

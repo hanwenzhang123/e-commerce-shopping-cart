@@ -37,7 +37,7 @@ export default function UserInfo() {
   }, []);
 
   const handleCreateUser = () => {
-    window.location.href = "/signup";
+    window.location = "/signup";
   };
 
   return (
@@ -70,29 +70,31 @@ export default function UserInfo() {
           <Button>Log out</Button>
         </div>
 
-        <p style={{ marginTop: "30px" }}>
+        <p style={{ margin: "30px" }}>
           Below are all the user info in the system
         </p>
-        {userState.length > 0 &&
-          userState.map((each, index) => {
-            return (
-              <Card key={index}>
-                <ul>
-                  <li>
-                    First Name: <b>{each.firstName}</b>
-                  </li>
-                  <li>
-                    Last Name: <b>{each.lastName}</b>
-                  </li>
-                  <li>
-                    Email: <b>{each.email}</b>
-                  </li>
-                </ul>
-              </Card>
-            );
-          })}
+        <div style={{ display: "flex" }}>
+          {userState.length > 0 &&
+            userState.map((each, index) => {
+              return (
+                <Card key={index}>
+                  <ul>
+                    <li>
+                      First Name: <b>{each.firstName}</b>
+                    </li>
+                    <li>
+                      Last Name: <b>{each.lastName}</b>
+                    </li>
+                    <li>
+                      Email: <b>{each.email}</b>
+                    </li>
+                  </ul>
+                </Card>
+              );
+            })}
+        </div>
         {loading && <Spinner />}
-        <Link to="/" style={{ marginTop: "20px" }}>
+        <Link to="/" style={{ marginTop: "30px" }}>
           Go to Home Page
         </Link>
       </Container>

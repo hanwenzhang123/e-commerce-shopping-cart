@@ -81,6 +81,7 @@ export default function ProductList() {
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       const url = "/api/product/edit/" + id;
       await Axios.post(url, {
@@ -88,8 +89,16 @@ export default function ProductList() {
         description: tempInfo.description,
         quantity: tempInfo.quantity,
         price: tempInfo.price,
-      });
+      })
+        .then((res) => {
+          window.location = "/";
+          alert("You have saved the edited product successfully");
+        })
+        .catch((err) => {
+          alert("Something goes wrong, please check");
+        });
     } catch (e) {
+      alert("Something goes wrong, please check");
       console.log(e);
     }
   };
@@ -97,14 +106,19 @@ export default function ProductList() {
   const deleteProduct = async (id) => {
     try {
       const url = "/api/product/delete/" + id;
-      await Axios.post(url).then((res) => {
-        window.location = "/";
-        alert("You have deleted the product successfully");
-        // if (res.data.redirect === "/") {
-        //   window.location = "/";
-        // }
-      });
+      await Axios.post(url)
+        .then((res) => {
+          window.location = "/";
+          alert("You have deleted the product successfully");
+          // if (res.data.redirect === "/") {
+          //   window.location = "/";
+          // }
+        })
+        .catch((err) => {
+          alert("Something goes wrong, please check");
+        });
     } catch (e) {
+      alert("Something goes wrong, please check");
       console.log(e);
     }
   };

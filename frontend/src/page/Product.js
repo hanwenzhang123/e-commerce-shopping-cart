@@ -10,6 +10,7 @@ export default function Product() {
   const [data, setData] = useState(ProductConstant);
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       const url = "/api/product";
       await fetch(url, {

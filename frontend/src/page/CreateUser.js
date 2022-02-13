@@ -15,24 +15,28 @@ export default function CreateUser(props) {
   }, [data]);
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       const url = "/api/signup";
-      const res = await Axios.post(url, {
+      await Axios.post(url, {
         fname: data.fname,
         lname: data.lname,
         email: data.email,
         secret: data.secret,
-      });
-      console.log(res);
-      // .then((res) => {
-      //   alert("You have signed in successfully");
-      //   setData(UserConstant);
-      //   setIsLogin(true);
-      // })
-      // .catch((e) => {
-      //   console.log(e);
-      // });
+      })
+        .then((res) => {
+          console.log(res);
+          alert("You have signed up successfully, you are now signed in");
+          setData(UserConstant);
+          setIsLogin(true);
+          window.location = "/";
+        })
+        .catch((e) => {
+          alert("Something goes wrong, please check");
+          console.log(e);
+        });
     } catch (e) {
+      alert("Something goes wrong, please check");
       console.log(e);
     }
   };
