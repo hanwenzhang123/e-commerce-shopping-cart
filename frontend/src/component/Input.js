@@ -1,8 +1,17 @@
 import React, { useState } from "react";
 
 export default function Input(props) {
-  const { label, type, id, min, step, value, placeholder, handleChange } =
-    props;
+  const {
+    label,
+    type,
+    id,
+    min,
+    step,
+    value,
+    placeholder,
+    minlength,
+    handleChange,
+  } = props;
 
   return (
     <React.Fragment>
@@ -15,6 +24,7 @@ export default function Input(props) {
         value={value}
         placeholder={placeholder}
         onChange={handleChange}
+        minlength={minlength}
         required
       ></input>
     </React.Fragment>

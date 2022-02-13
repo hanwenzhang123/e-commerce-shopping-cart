@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 import Navbar from "./component/Navbar.js";
@@ -10,22 +10,31 @@ import CreateUser from "./page/CreateUser.js";
 import SigninUser from "./page/SigninUser.js";
 import UserInfo from "./page/UserInfo.js";
 import ProductList from "./page/ProductList.js";
+import AuthContext from "./store/auth-context";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
   const [search, setSearch] = useState("");
   const [cartCount, setCartCount] = useState(0);
 
+  const auth = useContext(AuthContext);
+  const isLoggedIn = auth.isLoggedIn;
+
+  console.log(isLoggedIn);
+
   return (
     <React.Fragment>
-      <Navbar isLogin={isLogin} cartCount={cartCount} setSearch={setSearch} />
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        cartCount={cartCount}
+        setSearch={setSearch}
+      />
       <Routes>
         <Route
           exact
           path="/"
           element={
             <Homepage
-              isLogin={isLogin}
+              isLoggedIn={isLoggedIn}
               cartCount={cartCount}
               setCartCount={setCartCount}
               search={search}
@@ -37,24 +46,14 @@ function App() {
         <Route
           exact
           path="/user"
-          element={
-            isLogin ? (
-              <UserInfo setIsLogin={setIsLogin} />
-            ) : (
-              <Navigate to="/signup" />
-            )
-          }
-        />
-        <Route
-          exact
-          path="/signup"
-          element={<CreateUser setIsLogin={setIsLogin} />}
+          element={isLoggedIn ? <UserInfo /> : <Navigate to="/signup" />}
         />
         <Route
           exact
           path="/signin"
-          element={<SigninUser setIsLogin={setIsLogin} />}
+          element={isLoggedIn ? <Navigate to="/user" /> : <SigninUser />}
         />
+        <Route exact path="/signup" element={<CreateUser />} />
         <Route exact path="/cart" element={<ShoppingCart />} />
         <Route exact path="/404" element={<Errorpage />} />
         <Route path="/*" element={<Errorpage />} />

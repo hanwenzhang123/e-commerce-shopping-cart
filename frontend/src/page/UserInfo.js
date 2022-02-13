@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Card from "../UI/Card.js";
 import { Container, Button } from "../UI/CommonStyle.js";
 import Spinner from "../UI/Spinner.js";
+import AuthContext from "../store/auth-context";
 
 export default function UserInfo(props) {
   const [loading, setLoading] = useState(false);
   const [userState, setUserState] = useState([]);
 
-  const { setIsLogin } = props;
+  const auth = useContext(AuthContext);
 
   const fetchData = async () => {
     try {
@@ -43,7 +44,7 @@ export default function UserInfo(props) {
   };
 
   const handleLogout = () => {
-    setIsLogin(false);
+    auth.logout();
   };
 
   return (

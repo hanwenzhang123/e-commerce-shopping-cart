@@ -6,7 +6,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AddIcon from "@mui/icons-material/Add";
 
 export default function Homepage(props) {
-  const { isLogin, cartCount, setCartCount, search } = props;
+  const { isLoggedIn, cartCount, setCartCount, search } = props;
   const [loading, setLoading] = useState(false);
   const [initialState, setInitialState] = useState([]);
   const [filteredState, setFilteredState] = useState([]);
@@ -161,7 +161,7 @@ export default function Homepage(props) {
             marginTop: "30px",
           }}
         >
-          {isLogin ? (
+          {isLoggedIn ? (
             <h3>
               Add a new item for sale
               <AddIcon

@@ -12,4 +12,9 @@ const UserConstant = {
   secret: "",
 };
 
-export { ProductConstant, UserConstant };
+const LoginConstant = {
+  email: "",
+  secret: "",
+};
+
+export { ProductConstant, UserConstant, LoginConstant };

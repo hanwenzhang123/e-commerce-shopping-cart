@@ -5,7 +5,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import classes from "./style.module.css";
 
 export default function Navbar(props) {
-  const { isLogin, cartCount, setSearch } = props;
+  const { isLoggedIn, cartCount, setSearch } = props;
 
   const handleChange = (e) => {
     let inputValue = e.target.value.toLowerCase();
@@ -13,7 +13,7 @@ export default function Navbar(props) {
   };
 
   const userHandler = () => {
-    if (isLogin) {
+    if (isLoggedIn) {
       window.location = "/user";
     } else {
       window.location = "/signup";
@@ -28,7 +28,7 @@ export default function Navbar(props) {
     <nav className={classes.navigation}>
       <div className={classes.iconLeft}>
         <PersonIcon className={classes.personIcon} onClick={userHandler} />
-        {isLogin && (
+        {isLoggedIn && (
           <p style={{ marginLeft: "10px", display: "inline" }}>logged in</p>
         )}
       </div>

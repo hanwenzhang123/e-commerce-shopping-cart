@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Container } from "../UI/CommonStyle.js";
 
 export default function ShoppingCart(props) {
-  const { isLogin } = props;
   return (
     <React.Fragment>
       <Container>

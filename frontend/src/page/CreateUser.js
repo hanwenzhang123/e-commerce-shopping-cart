@@ -75,6 +75,7 @@ export default function CreateUser(props) {
           label="Secret"
           id="secret"
           type="password"
+          minlength="6"
           value={data["secret"]}
           handleChange={handleChange}
         />
