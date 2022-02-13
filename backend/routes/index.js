@@ -9,8 +9,8 @@ const displayAllProducts = require("./displayAllProducts.js");
 const createNewProduct = require("./createNewProduct.js");
 const createNewUser = require("./createNewUser.js");
 const signinValidation = require("./signinValidation.js");
-
-// const bcrypt = require("bcrypt");
+const displayUserInfo = require("./displayUserInfo");
+const displayProductInfo = require("./displayProductInfo");
 
 const requireLogin = (req, res, next) => {
   if (!req.session.user_id) {
@@ -20,17 +20,10 @@ const requireLogin = (req, res, next) => {
 };
 
 router.get("/", displayAllProducts);
+router.get("/user", displayUserInfo);
+router.get("/product/:id", displayProductInfo);
 
-router.get("/product/:id", async (req, res) => {
-  try {
-    const id = req.body.id || req.query.id;
-  } catch (error) {
-    console.log(error);
-    res.render("404");
-  }
-});
 router.post("/product", createNewProduct);
-
 router.post("/signup", createNewUser);
 router.post("/signin", signinValidation);
 
