@@ -32,7 +32,7 @@ mongoose
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(session({ secret: "secret" }));
+// app.use(session({ secret: "mysecret" }));
 
 const routes = require("./routes/index");
 app.use("/api", routes);

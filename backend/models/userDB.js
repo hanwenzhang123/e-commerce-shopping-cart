@@ -8,7 +8,7 @@ const userSchema = new Schema(
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true, minlength: 6 },
+    secret: { type: String, required: true, minlength: 6 },
   },
   {
     collection: "user",
@@ -17,15 +17,15 @@ const userSchema = new Schema(
 
 userSchema.plugin(uniqueValidator);
 
-userSchema.statics.findAndValidate = async function (email, password) {
+userSchema.statics.findAndValidate = async function (email, secret) {
   const foundUser = await this.findOne({ email });
-  const isValid = await bcrypt.compare(password, foundUser.password);
+  const isValid = await bcrypt.compare(secret, foundUser.secret);
   return isValid ? foundUser : false;
 };
 
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 12);
+  if (!this.isModified("secret")) return next();
+  this.secret = await bcrypt.hash(this.secret, 12);
   next();
 });
 

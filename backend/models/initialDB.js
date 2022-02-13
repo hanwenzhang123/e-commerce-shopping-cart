@@ -51,7 +51,7 @@ const seedUsers = [
     firstName: "A",
     lastName: "B",
     email: "AB@AB.com",
-    password: "123456",
+    secret: "123456",
   },
 ];
 

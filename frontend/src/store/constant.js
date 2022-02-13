@@ -9,7 +9,7 @@ const UserConstant = {
   fname: "",
   lname: "",
   email: "",
-  password: "",
+  secret: "",
 };
 
 export { ProductConstant, UserConstant };

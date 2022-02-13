@@ -8,6 +8,7 @@ const Product = require("../models/productDB.js");
 const displayAllProducts = require("./displayAllProducts.js");
 const createNewProduct = require("./createNewProduct.js");
 const createNewUser = require("./createNewUser.js");
+const signinValidation = require("./signinValidation.js");
 
 // const bcrypt = require("bcrypt");
 
@@ -28,9 +29,9 @@ router.get("/product/:id", async (req, res) => {
     res.render("404");
   }
 });
-
 router.post("/product", createNewProduct);
 
-router.post("/user", createNewUser);
+router.post("/signup", createNewUser);
+router.post("/signin", signinValidation);
 
 module.exports = router;

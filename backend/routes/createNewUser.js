@@ -1,20 +1,22 @@
 const User = require("../models/userDB.js");
+// const session = require("express-session");
 
 const createNewProduct = async (req, res) => {
   const firstName = req.body.fname;
   const lastName = req.body.lname;
   const email = req.body.email;
-  const password = req.body.password;
+  const secret = req.body.secret;
 
   let newUser = new User({
     firstName,
     lastName,
     email,
-    password,
+    secret,
   });
 
   try {
     await newUser.save();
+    // req.session.user_id = newUser._id;
   } catch (error) {
     console.log(error);
     res.render("404");

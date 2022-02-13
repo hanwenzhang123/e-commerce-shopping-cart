@@ -6,9 +6,10 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AddIcon from "@mui/icons-material/Add";
 
 export default function Homepage(props) {
-  const { isLogin, cartCount, setCartCount } = props;
+  const { isLogin, cartCount, setCartCount, search } = props;
   const [loading, setLoading] = useState(false);
   const [initialState, setInitialState] = useState([]);
+  const [filteredState, setFilteredState] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -42,6 +43,17 @@ export default function Homepage(props) {
     console.log(initialState);
   }, [initialState]);
 
+  useEffect(() => {
+    if (search.trim().length > 0 && initialState) {
+      let result = initialState.filter(
+        (each) =>
+          each["title"].toLowerCase().includes(search) ||
+          each["description"].toLowerCase().includes(search)
+      );
+      setFilteredState(result);
+    }
+  }, [search, initialState]);
+
   const handleClick = (id) => {
     console.log(id);
     setCartCount(cartCount + 1);
@@ -73,7 +85,73 @@ export default function Homepage(props) {
             width: "100%",
           }}
         >
-          {initialState.length > 0 &&
+          {search.trim().length > 0 ? (
+            filteredState.length > 0 ? (
+              filteredState.map((each, index) => {
+                return (
+                  <Card key={index}>
+                    <ul onClick={() => handleClick(each.id)}>
+                      <li>
+                        Title: <b>{each.title}</b>
+                      </li>
+                      <li>
+                        Description: <b>{each.description}</b>
+                      </li>
+                      <li>
+                        Quantity: <b>{each.quantity}</b>
+                      </li>
+                      <li>
+                        Price: <b>{each.price}</b>
+                      </li>
+                    </ul>
+                    <AddShoppingCartIcon
+                      style={{
+                        position: "relative",
+                        left: "120px",
+                        top: "20px",
+                      }}
+                      onClick={() => handleClick(each.id)}
+                    />
+                  </Card>
+                );
+              })
+            ) : (
+              <h3 style={{ color: "red", margin: "50px" }}>
+                No found result based on your search!
+              </h3>
+            )
+          ) : (
+            initialState.length > 0 &&
+            initialState.map((each, index) => {
+              return (
+                <Card key={index}>
+                  <ul onClick={() => handleClick(each.id)}>
+                    <li>
+                      Title: <b>{each.title}</b>
+                    </li>
+                    <li>
+                      Description: <b>{each.description}</b>
+                    </li>
+                    <li>
+                      Quantity: <b>{each.quantity}</b>
+                    </li>
+                    <li>
+                      Price: <b>{each.price}</b>
+                    </li>
+                  </ul>
+                  <AddShoppingCartIcon
+                    style={{
+                      position: "relative",
+                      left: "120px",
+                      top: "20px",
+                    }}
+                    onClick={() => handleClick(each.id)}
+                  />
+                </Card>
+              );
+            })
+          )}
+          {/* {initialState.length > 0 &&
             initialState.map((each, index) => {
               return (
                 <Card key={index}>
@@ -97,7 +175,7 @@ export default function Homepage(props) {
                   />
                 </Card>
               );
-            })}
+            })} */}
         </div>
         <div
           style={{
@@ -117,7 +195,10 @@ export default function Homepage(props) {
               />
             </h3>
           ) : (
-            <h3>You have to log in in order to add a new product!</h3>
+            <h3>
+              You have to log in in order to add a new product, or edit and
+              delete existing ones!
+            </h3>
           )}
         </div>
         {loading && <Spinner />}

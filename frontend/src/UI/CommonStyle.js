@@ -7,6 +7,7 @@ const Container = styled.div`
   height: 100%;
   padding: 30px 50px 30px 50px;
   flex-direction: column;
+  margin-bottom: 50px;
 `;
 
 const FormContainer = styled.div`

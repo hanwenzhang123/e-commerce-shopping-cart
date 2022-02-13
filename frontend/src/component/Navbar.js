@@ -5,14 +5,19 @@ import PersonIcon from "@mui/icons-material/Person";
 import classes from "./style.module.css";
 
 export default function Navbar(props) {
-  const { isLogin, cartCount } = props;
+  const { isLogin, cartCount, setSearch } = props;
 
   const handleChange = (e) => {
-    console.log(e.target.value);
+    let inputValue = e.target.value.toLowerCase();
+    setSearch(inputValue);
   };
 
   const userHandler = () => {
-    window.location.href = "/user";
+    if (isLogin) {
+      window.location.href = "/user";
+    } else {
+      window.location.href = "/signup";
+    }
   };
 
   const shoppingCartHandler = (e) => {
