@@ -1,11 +1,6 @@
-
 ---
 CS602 Final Project: A Shopping Cart Application
 ---
-
-## Description
-A fake e-commerce site providing CRUD operation using MERN as the tech stack.
-
 ## Start the App
 
 1. **Please go to the folder backend, and run `npm start` to start the server**
