@@ -35,7 +35,7 @@ export default function Navbar(props) {
       <div className={classes.searchBar}>
         <input
           type="text"
-          placeholder="search..."
+          placeholder="search by title/description..."
           id="search-input"
           onChange={handleChange}
         />

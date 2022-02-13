@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Input from "../component/Input.js";
+import Axios from "axios";
 
 import Card from "../UI/Card.js";
 import { Container, ProductFormContainer } from "../UI/CommonStyle.js";
@@ -72,32 +73,27 @@ export default function ProductList() {
   };
 
   const handleSubmit = async (e) => {
-    // try {
-    //   const url = "/api/product";
-    //   await fetch(url, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(data),
-    //   })
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       console.log("Success:", data);
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error:", error);
-    //     });
-    //   alert("You have created a new product successfully");
-    //   setData(ProductConstant);
-    //   window.location.href = "/";
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    try {
+      const url = "/api/product/edit/" + id;
+      await Axios.post(url, {
+        title: tempInfo.title,
+        description: tempInfo.description,
+        quantity: tempInfo.quantity,
+        price: tempInfo.price,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const deleteProduct = (id) => {
-    console.log(id);
+  const deleteProduct = async (id) => {
+    try {
+      const url = "/api/product/delete/" + id;
+      await Axios.post(url);
+      //need redirection
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

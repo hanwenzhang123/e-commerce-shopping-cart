@@ -11,8 +11,8 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon app.js  --ignore client",
-        "client": "cd .. && cd frontend && npm start --prefix client",
+        "dev": "nodemon app.js ",
+        "client": "cd .. && cd frontend && npm start ",
         "start": "concurrently \"npm run dev\" \"npm run client\""
     },
     "author": "",
