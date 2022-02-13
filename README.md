@@ -5,8 +5,8 @@ CS602 Final Project: A Shopping Cart Program
 
 ## Start the App
 
-**Please go to the folder backend, and run `npm start` to start the server**
-**Please go to the folder frontend, and run `npm start` to start the server**
+1. **Please go to the folder backend, and run `npm start` to start the server**
+2. **Please go to the folder frontend, and run `npm start` to start the server**
 
 - You may no longer need a separate server to run frontend `npm start` in order to start the client, since it is now both run concurrently.
 
@@ -38,6 +38,7 @@ CS602 Final Project: A Shopping Cart Program
 
 ## If Error Occurs
 - Node / Express: EADDRINUSE, Address already in use - Kill server
-> sudo lsof -i :3001\
-> kill -9 {PID}
+1. > sudo lsof -i :3001
+2. > kill -9 {PID}
+3. > change PID value accordingly
  
