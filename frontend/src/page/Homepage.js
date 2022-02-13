@@ -55,6 +55,10 @@ export default function Homepage(props) {
   }, [search, initialState]);
 
   const handleClick = (id) => {
+    window.location.href = "/product/" + id;
+  };
+
+  const addToCart = (id) => {
     console.log(id);
     setCartCount(cartCount + 1);
   };
@@ -75,7 +79,7 @@ export default function Homepage(props) {
         >
           <h1>This is Home Page</h1>
           <p>Here are all the products we have in MongoDB</p>
-          <p>Click the card to add the item to shopping cart</p>
+          <p>Click the card to view detail or edit or delete</p>
         </div>
         <div
           style={{
@@ -110,7 +114,7 @@ export default function Homepage(props) {
                         left: "120px",
                         top: "20px",
                       }}
-                      onClick={() => handleClick(each.id)}
+                      onClick={() => addToCart(each.id)}
                     />
                   </Card>
                 );
@@ -142,40 +146,15 @@ export default function Homepage(props) {
                   <AddShoppingCartIcon
                     style={{
                       position: "relative",
-                      left: "120px",
-                      top: "20px",
+                      left: "80%",
+                      top: "15px",
                     }}
-                    onClick={() => handleClick(each.id)}
+                    onClick={() => addToCart(each.id)}
                   />
                 </Card>
               );
             })
           )}
-          {/* {initialState.length > 0 &&
-            initialState.map((each, index) => {
-              return (
-                <Card key={index}>
-                  <ul onClick={() => handleClick(each.id)}>
-                    <li>
-                      Title: <b>{each.title}</b>
-                    </li>
-                    <li>
-                      Description: <b>{each.description}</b>
-                    </li>
-                    <li>
-                      Quantity: <b>{each.quantity}</b>
-                    </li>
-                    <li>
-                      Price: <b>{each.price}</b>
-                    </li>
-                  </ul>
-                  <AddShoppingCartIcon
-                    style={{ position: "relative", left: "120px", top: "20px" }}
-                    onClick={() => handleClick(each.id)}
-                  />
-                </Card>
-              );
-            })} */}
         </div>
         <div
           style={{

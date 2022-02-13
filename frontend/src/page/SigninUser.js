@@ -1,36 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 
-import { Container, FormContainer } from "../UI/CommonStyle.js";
+import { FormContainer } from "../UI/CommonStyle.js";
 import { UserConstant } from "../store/constant";
 import Input from "../component/Input.js";
+import AuthContext from "../store/auth-context";
 
-export default function CreateUser() {
+export default function CreateUser(props) {
+  const { setIsLogin } = props;
+  const auth = useContext(AuthContext);
   const [data, setData] = useState(UserConstant);
 
   const handleSubmit = async (e) => {
-    const url = "/api/signin";
-    await Axios.post(url, {
-      email: data.email,
-      secret: data.secret,
-    })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    alert("You have signed in successfully");
-    setData(UserConstant);
-    window.location.href = "/";
+    e.preventDefault();
+    auth.login();
+    // const expirationTime = new Date(
+    //   new Date.getTime() + +data.expiresIn * 1000
+    // ); //+ converts to number, *1000 from seconds to milliseconds
+    // authCtx.login(data.idToken, expirationTime.toISOString);
+
+    // const url = "/api/signin";
+    // await Axios.post(url, {
+    //   email: data.email,
+    //   secret: data.secret,
+    // })
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+    // alert("You have signed in successfully");
+    // setData(UserConstant);
+    // window.location.href = "/";
+    setIsLogin(true);
   };
 
   const handleChange = (e) => {
     const newData = { ...data };
     newData[e.target.id] = e.target.value;
     setData(newData);
-    console.log(newData);
   };
 
   return (

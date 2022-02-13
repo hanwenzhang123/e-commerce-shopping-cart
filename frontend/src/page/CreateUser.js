@@ -6,7 +6,8 @@ import { FormContainer } from "../UI/CommonStyle.js";
 import { UserConstant } from "../store/constant";
 import Input from "../component/Input.js";
 
-export default function CreateUser() {
+export default function CreateUser(props) {
+  const { setIsLogin } = props;
   const [data, setData] = useState(UserConstant);
 
   useEffect(() => {
@@ -14,28 +15,32 @@ export default function CreateUser() {
   }, [data]);
 
   const handleSubmit = async (e) => {
-    const url = "/api/signup";
-    await Axios.post(url, {
-      fname: data.fname,
-      lname: data.lname,
-      email: data.email,
-      secret: data.secret,
-    })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
+    try {
+      const url = "/api/signup";
+      const res = await Axios.post(url, {
+        fname: data.fname,
+        lname: data.lname,
+        email: data.email,
+        secret: data.secret,
       });
-    alert("You have signed in successfully");
-    setData(UserConstant);
+      console.log(res);
+      // .then((res) => {
+      //   alert("You have signed in successfully");
+      //   setData(UserConstant);
+      //   setIsLogin(true);
+      // })
+      // .catch((e) => {
+      //   console.log(e);
+      // });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleChange = (e) => {
     const newData = { ...data };
     newData[e.target.id] = e.target.value;
     setData(newData);
-    console.log(newData);
   };
 
   return (
