@@ -105,7 +105,7 @@ export default function Homepage(props) {
                         Quantity: <b>{each.quantity}</b>
                       </li>
                       <li>
-                        Price: <b>{each.price}</b>
+                        Price: <b>${each.price}</b>
                       </li>
                     </ul>
                     <AddShoppingCartIcon
@@ -140,7 +140,7 @@ export default function Homepage(props) {
                       Quantity: <b>{each.quantity}</b>
                     </li>
                     <li>
-                      Price: <b>{each.price}</b>
+                      Price: <b>${each.price}</b>
                     </li>
                   </ul>
                   <AddShoppingCartIcon

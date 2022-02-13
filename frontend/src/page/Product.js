@@ -18,17 +18,19 @@ export default function Product() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+        redirect: "/",
       })
-        .then((response) => response.json())
+        .then((response) => {
+          alert("You have created a new product successfully");
+          setData(ProductConstant);
+          response.json();
+        })
         .then((data) => {
           console.log("Success:", data);
         })
         .catch((error) => {
           console.error("Error:", error);
         });
-      alert("You have created a new product successfully");
-      setData(ProductConstant);
-      window.location.href = "/";
     } catch (e) {
       console.log(e);
     }

@@ -10,6 +10,8 @@ const deleteProduct = async (req, res) => {
 
       product.remove((err) => {
         if (err) throw err;
+        const redirect = { redirect: "/" };
+        return res.json(redirect);
       });
     });
   } catch (error) {

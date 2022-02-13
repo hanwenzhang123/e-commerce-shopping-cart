@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import Input from "../component/Input.js";
+import { Link, useParams, Navigate } from "react-router-dom";
 import Axios from "axios";
 
+import Input from "../component/Input.js";
+import Deleting from "../component/Deleting.js";
+import Editing from "../component/Editing.js";
+
 import Card from "../UI/Card.js";
-import { Container, ProductFormContainer } from "../UI/CommonStyle.js";
 import Spinner from "../UI/Spinner.js";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { Container, ProductFormContainer } from "../UI/CommonStyle.js";
 
 export default function ProductList() {
   const params = useParams();
@@ -44,6 +45,13 @@ export default function ProductList() {
       }
     };
     loadData();
+
+    return () => {
+      setProductInfo({});
+      setTempInfo({});
+      isShowEditForm(false);
+      setLoading(false);
+    };
   }, [id]);
 
   useEffect(() => {
@@ -89,8 +97,13 @@ export default function ProductList() {
   const deleteProduct = async (id) => {
     try {
       const url = "/api/product/delete/" + id;
-      await Axios.post(url);
-      //need redirection
+      await Axios.post(url).then((res) => {
+        window.location = "/";
+        alert("You have deleted the product successfully");
+        // if (res.data.redirect === "/") {
+        //   window.location = "/";
+        // }
+      });
     } catch (e) {
       console.log(e);
     }
@@ -125,22 +138,10 @@ export default function ProductList() {
                 Price: <b>{productInfo.price}</b>
               </p>
             </div>
-            <EditIcon
-              style={{
-                position: "relative",
-                left: "70%",
-                top: "15px",
-              }}
-              onClick={() => editProduct(id)}
-            />
-            <DeleteForeverIcon
-              style={{
-                position: "relative",
-                left: "75%",
-                top: "15px",
-              }}
-              onClick={() => deleteProduct(id)}
-            />
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Editing id={id} action={editProduct} />
+              <Deleting id={id} action={deleteProduct} />
+            </div>
           </Card>
         )}
         {showEditForm && (
@@ -186,7 +187,6 @@ export default function ProductList() {
             </form>
           </ProductFormContainer>
         )}
-
         {loading && <Spinner />}
         <Link to="/" style={{ marginTop: "20px" }}>
           Go to Home Page

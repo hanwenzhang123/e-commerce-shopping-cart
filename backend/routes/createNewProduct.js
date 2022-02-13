@@ -15,6 +15,7 @@ const createNewProduct = async (req, res) => {
 
   try {
     await newProduct.save();
+    res.redirect("/");
   } catch (error) {
     console.log(error);
     res.render("404");
