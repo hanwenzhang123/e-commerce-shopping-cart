@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import CartContext from "../store/cart-context";
+
 import { Container } from "../UI/CommonStyle.js";
 import Card from "../UI/Card.js";
 import Spinner from "../UI/Spinner.js";
@@ -6,10 +8,12 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AddIcon from "@mui/icons-material/Add";
 
 export default function Homepage(props) {
-  const { isLoggedIn, cartCount, setCartCount, search } = props;
+  const { isLoggedIn, search } = props;
   const [loading, setLoading] = useState(false);
   const [initialState, setInitialState] = useState([]);
   const [filteredState, setFilteredState] = useState([]);
+
+  const cart = useContext(CartContext);
 
   const fetchData = async () => {
     try {
@@ -58,9 +62,8 @@ export default function Homepage(props) {
     window.location = "/product/" + id;
   };
 
-  const addToCart = (id) => {
-    console.log(id);
-    setCartCount(cartCount + 1);
+  const addToCart = (item) => {
+    cart.setCartItems(item);
   };
 
   const handleAddClick = () => {
@@ -114,7 +117,7 @@ export default function Homepage(props) {
                         left: "120px",
                         top: "20px",
                       }}
-                      onClick={() => addToCart(each.id)}
+                      onClick={() => addToCart(filteredState[index])}
                     />
                   </Card>
                 );
@@ -149,7 +152,7 @@ export default function Homepage(props) {
                       left: "80%",
                       top: "15px",
                     }}
-                    onClick={() => addToCart(each.id)}
+                    onClick={() => addToCart(initialState[index])}
                   />
                 </Card>
               );

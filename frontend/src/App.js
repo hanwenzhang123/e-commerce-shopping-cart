@@ -14,35 +14,22 @@ import AuthContext from "./store/auth-context";
 
 function App() {
   const [search, setSearch] = useState("");
-  const [cartCount, setCartCount] = useState(0);
 
   const auth = useContext(AuthContext);
   const isLoggedIn = auth.isLoggedIn;
 
-  console.log(isLoggedIn);
-
   return (
     <React.Fragment>
-      <Navbar
-        isLoggedIn={isLoggedIn}
-        cartCount={cartCount}
-        setSearch={setSearch}
-      />
+      <Navbar isLoggedIn={isLoggedIn} setSearch={setSearch} />
       <Routes>
         <Route
           exact
           path="/"
-          element={
-            <Homepage
-              isLoggedIn={isLoggedIn}
-              cartCount={cartCount}
-              setCartCount={setCartCount}
-              search={search}
-            />
-          }
+          element={<Homepage isLoggedIn={isLoggedIn} search={search} />}
         />
         <Route exact path="/product" element={<Product />} />
         <Route path="/product/:id" element={<ProductList />} />
+        <Route exact path="/cart" element={<ShoppingCart />} />
         <Route
           exact
           path="/user"
@@ -54,7 +41,6 @@ function App() {
           element={isLoggedIn ? <Navigate to="/user" /> : <SigninUser />}
         />
         <Route exact path="/signup" element={<CreateUser />} />
-        <Route exact path="/cart" element={<ShoppingCart />} />
         <Route exact path="/404" element={<Errorpage />} />
         <Route path="/*" element={<Errorpage />} />
       </Routes>

@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import CartContext from "../store/cart-context";
+
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import classes from "./style.module.css";
 
 export default function Navbar(props) {
-  const { isLoggedIn, cartCount, setSearch } = props;
+  const { isLoggedIn, setSearch } = props;
+
+  const cart = useContext(CartContext);
+  const cartCount = cart.cartCount;
 
   const handleChange = (e) => {
     let inputValue = e.target.value.toLowerCase();
