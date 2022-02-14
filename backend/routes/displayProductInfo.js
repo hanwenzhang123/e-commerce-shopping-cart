@@ -17,7 +17,6 @@ const displayProductInfo = async (req, res) => {
         };
       }
     });
-    console.log(product);
     res.json(product);
   } catch (error) {
     console.log(error);

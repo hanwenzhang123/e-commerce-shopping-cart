@@ -8,12 +8,29 @@ import AuthContext from "../store/auth-context";
 export default function UserInfo(props) {
   const [loading, setLoading] = useState(false);
   const [userState, setUserState] = useState([]);
+  const [allUserState, setAllUserState] = useState([]);
 
   const auth = useContext(AuthContext);
+  const currentUserId = auth.userId;
 
   const fetchData = async () => {
     try {
       const result = await fetch("/api/user").then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("not able to fetch data correctly");
+        }
+      });
+      setAllUserState(result);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const fetchUserData = async (id) => {
+    try {
+      const result = await fetch("/api/user/" + id).then((res) => {
         if (res.ok) {
           return res.json();
         } else {
@@ -39,6 +56,21 @@ export default function UserInfo(props) {
     loadData();
   }, []);
 
+  useEffect(() => {
+    if (currentUserId) {
+      setLoading(true);
+      let isMounted = true;
+      const loadData = async () => {
+        await fetchUserData(currentUserId);
+        if (isMounted) {
+          setLoading(false);
+          isMounted = false;
+        }
+      };
+      loadData();
+    }
+  }, [currentUserId]);
+
   const handleCreateUser = () => {
     window.location = "/signup";
   };
@@ -54,24 +86,21 @@ export default function UserInfo(props) {
           <b>This is user info page meaning you have already signed in</b>
         </p>
         <p>Below is your user info in the system</p>
-        {userState.length > 0 &&
-          userState.map((each, index) => {
-            return (
-              <Card key={index}>
-                <ul>
-                  <li>
-                    First Name: <b>{each.firstName}</b>
-                  </li>
-                  <li>
-                    Last Name: <b>{each.lastName}</b>
-                  </li>
-                  <li>
-                    Email: <b>{each.email}</b>
-                  </li>
-                </ul>
-              </Card>
-            );
-          })}
+        {userState && (
+          <Card>
+            <ul>
+              <li>
+                First Name: <b>{userState.firstName}</b>
+              </li>
+              <li>
+                Last Name: <b>{userState.lastName}</b>
+              </li>
+              <li>
+                Email: <b>{userState.email}</b>
+              </li>
+            </ul>
+          </Card>
+        )}
         <div style={{ width: "30%" }}>
           <Button onClick={handleCreateUser}>Create User</Button>
           <Button onClick={handleLogout}>Log out</Button>
@@ -81,8 +110,8 @@ export default function UserInfo(props) {
           Below are all the user info in the system
         </p>
         <div style={{ display: "inline" }}>
-          {userState.length > 0 &&
-            userState.map((each, index) => {
+          {allUserState.length > 0 &&
+            allUserState.map((each, index) => {
               return (
                 <Card key={index}>
                   <ul>

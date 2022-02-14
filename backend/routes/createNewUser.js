@@ -7,16 +7,21 @@ const createNewProduct = async (req, res) => {
   const email = req.body.email;
   const secret = req.body.secret;
 
-  let newUser = new User({
-    firstName,
-    lastName,
-    email,
-    secret,
-  });
-
   try {
-    await newUser.save();
-    res.json("You have created a new user successfully");
+    const existUser = await User.findOne({ email });
+
+    if (existUser) {
+      res.json("EXISTED");
+    } else {
+      let newUser = new User({
+        firstName,
+        lastName,
+        email,
+        secret,
+      });
+      await newUser.save();
+      res.json("OK");
+    }
     // req.session.user_id = newUser._id;
   } catch (error) {
     console.log(error);

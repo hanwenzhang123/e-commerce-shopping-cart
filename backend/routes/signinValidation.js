@@ -12,7 +12,8 @@ const signinValidation = async (req, res) => {
     const foundUser = await User.findAndValidate(email, secret);
     if (foundUser) {
       const accessToken = generateAccessToken(email);
-      res.send(accessToken);
+      const id = foundUser._id;
+      res.json({ id, accessToken });
     } else {
       res.json("NO");
     }

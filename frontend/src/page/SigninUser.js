@@ -26,7 +26,7 @@ export default function CreateUser(props) {
           window.location.reload();
         } else {
           alert("You have passed authentication and signed in successfully!");
-          auth.login(res.data, 500);
+          auth.login(res.data.accessToken, 500, res.data.id);
           window.location = "/";
           setData(LoginConstant);
         }

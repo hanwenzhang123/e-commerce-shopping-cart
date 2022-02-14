@@ -19,6 +19,7 @@ const saveEditProduct = require("./saveEditProduct");
 const deleteProduct = require("./deleteProduct");
 
 const displayUserInfo = require("./displayUserInfo");
+const displayCurrentUserInfo = require("./displayCurrentUserInfo");
 const createNewUser = require("./createNewUser.js");
 const signinValidation = require("./signinValidation.js");
 
@@ -29,6 +30,7 @@ router.post("/product/edit/:id", saveEditProduct);
 router.delete("/product/delete/:id", deleteProduct);
 
 router.get("/user", displayUserInfo);
+router.get("/user/:id", displayCurrentUserInfo);
 router.post("/signup", createNewUser);
 router.post("/signin", signinValidation);
 

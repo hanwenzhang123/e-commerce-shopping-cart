@@ -19,9 +19,13 @@ export default function CreateUser(props) {
         email: data.email,
         secret: data.secret,
       }).then((res) => {
-        alert("You have created a new user successfully!");
-        window.location = "/";
-        setData(UserConstant);
+        if (res.data === "OK") {
+          alert("You have created a new user successfully! Please log in!");
+          window.location = "/";
+          setData(UserConstant);
+        } else {
+          alert("Email has been signed up with an account! Please retry!");
+        }
       });
     } catch (e) {
       alert("Something goes wrong, please check!");
