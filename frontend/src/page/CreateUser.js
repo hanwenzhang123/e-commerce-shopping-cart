@@ -9,10 +9,6 @@ import Input from "../component/Input.js";
 export default function CreateUser(props) {
   const [data, setData] = useState(UserConstant);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

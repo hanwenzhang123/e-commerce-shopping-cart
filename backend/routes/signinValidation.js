@@ -1,12 +1,18 @@
 const User = require("../models/userDB.js");
-const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+function generateAccessToken(user) {
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+}
 
 const signinValidation = async (req, res) => {
   const { email, secret } = req.body;
+
   try {
     const foundUser = await User.findAndValidate(email, secret);
     if (foundUser) {
-      res.json("GOOD");
+      const accessToken = generateAccessToken(email);
+      res.send(accessToken);
     } else {
       res.json("NO");
     }

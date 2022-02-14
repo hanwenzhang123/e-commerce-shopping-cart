@@ -20,27 +20,21 @@ export default function CreateUser(props) {
         secret: data.secret,
       }).then((res) => {
         if (res.data === "NO") {
-          alert("You did not pass the authentication! Check again!");
+          alert(
+            "Authentication Failed! Something went wrong, please check again!"
+          );
           window.location.reload();
-        } else if (res.data === "GOOD") {
+        } else {
           alert("You have passed authentication and signed in successfully!");
+          auth.login(res.data, 500);
           window.location = "/";
           setData(LoginConstant);
-          // auth.log();
         }
       });
     } catch (e) {
       alert("Something goes wrong, please check!");
       console.log(e);
     }
-    // const expirationTime = new Date(
-    //   new Date.getTime() + +data.expiresIn * 1000
-    // ); //+ converts to number, *1000 from seconds to milliseconds
-    // authCtx.login(data.idToken, expirationTime.toISOString);
-
-    // alert("You have signed in successfully!");
-    // setData(UserConstant);
-    // window.location = "/";
   };
 
   const handleChange = (e) => {

@@ -24,7 +24,7 @@ export default function Input(props) {
         value={value}
         placeholder={placeholder}
         onChange={handleChange}
-        minlength={minlength}
+        minLength={minlength}
         required
       ></input>
     </React.Fragment>

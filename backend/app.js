@@ -1,7 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const User = "./models/userDB.js";
-const Product = "./models/productDB.js";
 // const session = require("express-session");
 
 const credentials = require("./credentials.js");
