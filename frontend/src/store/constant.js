@@ -5,6 +5,15 @@ const ProductConstant = {
   price: "",
 };
 
+const ShoppingCartConstant = {
+  title: "",
+  description: "",
+  selectedQuantity: 0,
+  stockQuantity: 0,
+  eachPrice: 0,
+  totalPrice: 0,
+};
+
 const UserConstant = {
   fname: "",
   lname: "",
@@ -17,4 +26,4 @@ const LoginConstant = {
   secret: "",
 };
 
-export { ProductConstant, UserConstant, LoginConstant };
+export { ProductConstant, ShoppingCartConstant, UserConstant, LoginConstant };
