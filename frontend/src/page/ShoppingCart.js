@@ -19,6 +19,7 @@ export default function ShoppingCart() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
   useEffect(() => {
+    // console.log(cartItems);
     if (cartItems.length > 0) {
       const tempMap = {};
       const renderValue = [];
@@ -51,7 +52,15 @@ export default function ShoppingCart() {
         renderValue.push(template);
       }
 
+      renderValue.sort((a, b) => {
+        return a.eachPrice - b.eachPrice;
+      });
+
       setShoppingCart(renderValue);
+    } else {
+      setPrice(Number(0).toFixed(2));
+      setShoppingCart([]);
+      showWarning(false);
     }
   }, [cartItems]);
 
@@ -63,20 +72,49 @@ export default function ShoppingCart() {
         total += each.totalPrice;
         if (each.selectedQuantity > each.stockQuantity) {
           showWarning(true);
+          break;
+        } else {
+          showWarning(false);
         }
       }
-      setPrice(total);
+      setPrice(Number(total).toFixed(2));
     }
   }, [shoppingCart]);
 
-  const handleIncrease = (item) => {
-    console.log("increase");
+  // useEffect(() => {
+  //   console.log(cartItemsCopy);
+  // }, [cartItemsCopy]);
+
+  const cartItemsSearch = (title) => {
+    if (cartItems.length > 0) {
+      for (let i = 0; i < cartItems.length; i++) {
+        if (cartItems[i]?.title === title) {
+          return cartItems[i];
+        }
+      }
+    }
   };
-  const handleDecrease = (item) => {
-    console.log("decrease");
+
+  const handleIncrease = (item, index) => {
+    const foundItem = cartItemsSearch(item.title);
+    cart.setCartItems(foundItem);
   };
-  const handleDelete = (item) => {
-    console.log("delete");
+
+  const handleDecrease = (item, index) => {
+    const foundItem = cartItemsSearch(item.title);
+    cart.deleteItem(foundItem);
+  };
+
+  const handleDelete = (item, index) => {
+    shoppingCart.splice(index, 1);
+  };
+
+  const checkoutCart = () => {
+    if (warning) {
+      alert(
+        "You can not checkout the order because you have selected more items than the existing quantity in stock, please check again."
+      );
+    }
   };
 
   return (
@@ -85,7 +123,7 @@ export default function ShoppingCart() {
         <h1 style={{ marginBottom: "20px" }}>
           Shopping Cart - Total: ${price}
         </h1>
-        <Button style={{ width: "20%" }} onClick={() => cart.clearCartItems()}>
+        <Button style={{ width: "20%" }} onClick={() => checkoutCart()}>
           Process Order
         </Button>
         <Button style={{ width: "20%" }} onClick={() => cart.clearCartItems()}>
@@ -135,10 +173,10 @@ export default function ShoppingCart() {
                       In Stock: <b>{each.stockQuantity}</b>
                     </li>
                     <li>
-                      Unit Price: <b>${each.eachPrice}</b>
+                      Unit Price: <b>${Number(each.eachPrice).toFixed(2)}</b>
                     </li>
                     <li>
-                      Total Price: <b>${each.totalPrice}</b>
+                      Total Price: <b>${Number(each.totalPrice).toFixed(2)}</b>
                     </li>
                   </div>
                   <div
@@ -150,13 +188,13 @@ export default function ShoppingCart() {
                     }}
                   >
                     <AddCircleOutlineIcon
-                      onClick={() => handleIncrease(shoppingCart[index])}
+                      onClick={() => handleIncrease(shoppingCart[index], index)}
                     />
                     <RemoveCircleOutlineIcon
-                      onClick={() => handleDecrease(shoppingCart[index])}
+                      onClick={() => handleDecrease(shoppingCart[index], index)}
                     />
                     <DeleteOutlineIcon
-                      onClick={() => handleDelete(shoppingCart[index])}
+                      onClick={() => handleDelete(shoppingCart[index], index)}
                     />
                   </div>
                 </Card>

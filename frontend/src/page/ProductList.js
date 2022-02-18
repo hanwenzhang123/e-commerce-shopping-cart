@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import CartContext from "../store/cart-context";
 import { Link, useParams } from "react-router-dom";
 import Axios from "axios";
 
@@ -11,6 +12,9 @@ import Spinner from "../UI/Spinner.js";
 import { Container, ProductFormContainer } from "../UI/CommonStyle.js";
 
 export default function ProductList() {
+  const cart = useContext(CartContext);
+  const cartItems = cart.cartItems;
+
   const params = useParams();
   const id = params.id;
 
@@ -18,6 +22,7 @@ export default function ProductList() {
   const [showEditForm, isShowEditForm] = useState(false);
   const [productInfo, setProductInfo] = useState({});
   const [tempInfo, setTempInfo] = useState({});
+  const [isCartItems, setIsCartItems] = useState(false);
 
   const fetchData = async (id) => {
     try {
@@ -55,19 +60,33 @@ export default function ProductList() {
   }, [id]);
 
   useEffect(() => {
-    console.log("productInfo", productInfo);
+    // console.log("productInfo", productInfo);
     if (productInfo) {
       const clone = JSON.parse(JSON.stringify(productInfo));
       setTempInfo(clone);
     }
   }, [productInfo]);
 
+  // useEffect(() => {
+  //   console.log("tempInfo", tempInfo);
+  // }, [tempInfo]);
+
   useEffect(() => {
-    console.log("tempInfo", tempInfo);
-  }, [tempInfo]);
+    if (cartItems.length > 0) {
+      setIsCartItems(true);
+    } else {
+      setIsCartItems(false);
+    }
+  }, [cartItems]);
 
   const editProduct = (id) => {
-    isShowEditForm(!showEditForm);
+    if (isCartItems) {
+      alert(
+        "You can not edit product detail when you have items in the cart. Please reset your shopping cart first."
+      );
+    } else {
+      isShowEditForm(!showEditForm);
+    }
   };
 
   const handleCancel = () => {
@@ -102,14 +121,20 @@ export default function ProductList() {
 
   const deleteProduct = async (id) => {
     try {
-      const url = "/api/product/delete/" + id;
-      await Axios.delete(url).then((res) => {
-        window.location = "/";
-        alert("You have deleted the product successfully!");
-        // if (res.data.redirect === "/") {
-        //   window.location = "/";
-        // }
-      });
+      if (isCartItems) {
+        alert(
+          "You can not delete the product when you have items in the cart. Please reset your shopping cart first."
+        );
+      } else {
+        const url = "/api/product/delete/" + id;
+        await Axios.delete(url).then((res) => {
+          window.location = "/";
+          alert("You have deleted the product successfully!");
+          // if (res.data.redirect === "/") {
+          //   window.location = "/";
+          // }
+        });
+      }
     } catch (e) {
       alert("Something goes wrong, please check!");
       console.log(e);

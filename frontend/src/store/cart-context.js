@@ -5,6 +5,7 @@ const CartContext = React.createContext({
   cartCount: 0,
   cartItems: [],
   setCartItems: (item) => {},
+  deleteItem: (item) => {},
   clearCartItems: () => {},
 });
 
@@ -34,6 +35,20 @@ export const CartContextProvider = (props) => {
   const addToCartHandler = (item) => {
     const temp = _.cloneDeep(items);
     temp.push(item);
+
+    setItems(temp);
+    setCount(temp.length);
+  };
+
+  const deleteCartHandler = (item) => {
+    const temp = _.cloneDeep(items);
+    for (let i = 0; i < temp.length; i++) {
+      if (temp[i]?.title === item.title) {
+        temp.splice(i, 1);
+        break;
+      }
+    }
+
     setItems(temp);
     setCount(temp.length);
   };
@@ -51,6 +66,7 @@ export const CartContextProvider = (props) => {
     cartCount: count,
     cartItems: items,
     setCartItems: addToCartHandler,
+    deleteItem: deleteCartHandler,
     clearCartItems: clearCartHandler,
   };
 
