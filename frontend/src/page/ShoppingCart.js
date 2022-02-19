@@ -10,7 +10,8 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-export default function ShoppingCart() {
+export default function ShoppingCart(props) {
+  const { isLoggedIn, user } = props;
   const cart = useContext(CartContext);
   const cartItems = cart.cartItems;
 
@@ -65,7 +66,7 @@ export default function ShoppingCart() {
   }, [cartItems]);
 
   useEffect(() => {
-    console.log(shoppingCart);
+    // console.log(shoppingCart);
     if (shoppingCart.length > 0) {
       let total = 0;
       let warning;
@@ -80,7 +81,7 @@ export default function ShoppingCart() {
       } else {
         showWarning(false);
       }
-      setPrice(total.toFixed(2));
+      setPrice(Number(total.toFixed(2)));
     }
   }, [shoppingCart]);
 
@@ -113,11 +114,52 @@ export default function ShoppingCart() {
     cart.deleteAllItems(foundItem);
   };
 
-  const checkoutCart = () => {
+  const checkoutCart = async () => {
+    if (!isLoggedIn) {
+      alert("You have to log in first in order to process the order.");
+      return;
+    }
     if (warning) {
       alert(
         "You can not checkout the order because you have selected more items than the existing quantity in stock, please check again."
       );
+      return;
+    }
+
+    const data = {
+      order: [],
+      total: price,
+      user: user,
+    };
+
+    for (let each of shoppingCart) {
+      const temp = { title: "", quantity: 0, price: 0 };
+      temp.title = each.title;
+      temp.quantity = each.selectedQuantity;
+      temp.price = each.eachPrice;
+      data.order.push(temp);
+    }
+
+    // console.log(data);
+
+    try {
+      const url = "/api/cart";
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((res) => {
+        if (res.ok) {
+          alert("You have processed the order successfully!");
+          window.location = "/";
+          cart.clearCartItems();
+        }
+      });
+    } catch (e) {
+      alert("Something goes wrong, please check!");
+      console.log(e);
     }
   };
 

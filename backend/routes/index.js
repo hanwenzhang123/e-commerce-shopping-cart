@@ -23,6 +23,9 @@ const displayCurrentUserInfo = require("./displayCurrentUserInfo");
 const createNewUser = require("./createNewUser.js");
 const signinValidation = require("./signinValidation.js");
 
+const createShoppingOrder = require("./createShoppingOrder.js");
+const getOrderDetails = require("./getOrderDetails.js");
+
 router.get("/", displayAllProducts);
 router.get("/product/:id", displayProductInfo);
 router.post("/product", createNewProduct);
@@ -33,5 +36,9 @@ router.get("/user", displayUserInfo);
 router.get("/user/:id", displayCurrentUserInfo);
 router.post("/signup", createNewUser);
 router.post("/signin", signinValidation);
+
+router.post("/cart", createShoppingOrder);
+// router.post("/order", createShoppingOrder);
+router.get("/order/:id", getOrderDetails);
 
 module.exports = router;

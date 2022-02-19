@@ -17,6 +17,7 @@ function App() {
 
   const auth = useContext(AuthContext);
   const isLoggedIn = auth.isLoggedIn;
+  const user = auth.userId;
 
   return (
     <React.Fragment>
@@ -29,7 +30,11 @@ function App() {
         />
         <Route exact path="/product" element={<Product />} />
         <Route path="/product/:id" element={<ProductList />} />
-        <Route exact path="/cart" element={<ShoppingCart />} />
+        <Route
+          exact
+          path="/cart"
+          element={<ShoppingCart isLoggedIn={isLoggedIn} user={user} />}
+        />
         <Route
           exact
           path="/user"
