@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { Container, Button } from "../UI/CommonStyle.js";
 import Card from "../UI/Card.js";
 import Spinner from "../UI/Spinner.js";
-import InfoIcon from "@mui/icons-material/Info";
 
 export default function UserProfile(props) {
   const [loading, setLoading] = useState(false);

@@ -5,6 +5,7 @@ import { ShoppingCartConstant } from "../store/constant";
 import { Container, Button } from "../UI/CommonStyle.js";
 import Card from "../UI/Card.js";
 import _ from "lodash";
+import Axios from "axios";
 
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
@@ -114,6 +115,30 @@ export default function ShoppingCart(props) {
     cart.deleteAllItems(foundItem);
   };
 
+  const databaseUpdate = async (order) => {
+    console.log(order);
+    for (let each of order) {
+      const foundItem = cartItemsSearch(each.title);
+      const id = foundItem.id;
+      const orderQuantity = each.quantity;
+      const quantityInStock = foundItem.quantity;
+      const leftoverQuantity = quantityInStock - orderQuantity;
+      try {
+        const url = "/api/product/order/" + id;
+        await Axios.post(url, {
+          leftoverQuantity: leftoverQuantity,
+        }).then((res) => {
+          if (res.status === 200) {
+            cart.checkoutItems();
+          }
+        });
+      } catch (e) {
+        alert("Something goes wrong, please check!");
+        console.log(e);
+      }
+    }
+  };
+
   const checkoutCart = async () => {
     if (shoppingCart.length === 0) {
       alert("You do not have any item in your shopping cart to checkout.");
@@ -142,8 +167,6 @@ export default function ShoppingCart(props) {
       data.order.push(temp);
     }
 
-    // console.log(data);
-
     try {
       const url = "/api/order";
       await fetch(url, {
@@ -153,9 +176,8 @@ export default function ShoppingCart(props) {
         },
         body: JSON.stringify(data),
       }).then((res) => {
-        console.log(res);
         if (res.ok) {
-          cart.checkoutItems();
+          databaseUpdate(data.order);
         }
       });
     } catch (e) {
