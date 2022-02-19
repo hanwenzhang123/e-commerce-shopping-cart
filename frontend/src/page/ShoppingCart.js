@@ -58,7 +58,7 @@ export default function ShoppingCart() {
 
       setShoppingCart(renderValue);
     } else {
-      setPrice(Number(0).toFixed(2));
+      setPrice(0);
       setShoppingCart([]);
       showWarning(false);
     }
@@ -68,16 +68,19 @@ export default function ShoppingCart() {
     console.log(shoppingCart);
     if (shoppingCart.length > 0) {
       let total = 0;
+      let warning;
       for (let each of shoppingCart) {
         total += each.totalPrice;
         if (each.selectedQuantity > each.stockQuantity) {
-          showWarning(true);
-          break;
-        } else {
-          showWarning(false);
+          warning = true;
         }
       }
-      setPrice(Number(total).toFixed(2));
+      if (warning) {
+        showWarning(true);
+      } else {
+        showWarning(false);
+      }
+      setPrice(total.toFixed(2));
     }
   }, [shoppingCart]);
 
@@ -106,7 +109,8 @@ export default function ShoppingCart() {
   };
 
   const handleDelete = (item, index) => {
-    shoppingCart.splice(index, 1);
+    const foundItem = cartItemsSearch(item.title);
+    cart.deleteAllItems(foundItem);
   };
 
   const checkoutCart = () => {
@@ -173,10 +177,10 @@ export default function ShoppingCart() {
                       In Stock: <b>{each.stockQuantity}</b>
                     </li>
                     <li>
-                      Unit Price: <b>${Number(each.eachPrice).toFixed(2)}</b>
+                      Unit Price: <b>${each.eachPrice.toFixed(2)}</b>
                     </li>
                     <li>
-                      Total Price: <b>${Number(each.totalPrice).toFixed(2)}</b>
+                      Total Price: <b>${each.totalPrice.toFixed(2)}</b>
                     </li>
                   </div>
                   <div
