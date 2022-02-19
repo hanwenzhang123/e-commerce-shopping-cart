@@ -115,14 +115,16 @@ export default function ShoppingCart(props) {
   };
 
   const checkoutCart = async () => {
+    if (shoppingCart.length === 0) {
+      alert("You do not have any item in your shopping cart to checkout.");
+      return;
+    }
     if (!isLoggedIn) {
       alert("You have to log in first in order to process the order.");
       return;
     }
     if (warning) {
-      alert(
-        "You can not checkout the order because you have selected more items than the existing quantity in stock, please check again."
-      );
+      alert("You selected more items than the existing quantity in stock.");
       return;
     }
 
@@ -143,7 +145,7 @@ export default function ShoppingCart(props) {
     // console.log(data);
 
     try {
-      const url = "/api/cart";
+      const url = "/api/order";
       await fetch(url, {
         method: "POST",
         headers: {
@@ -151,10 +153,9 @@ export default function ShoppingCart(props) {
         },
         body: JSON.stringify(data),
       }).then((res) => {
+        console.log(res);
         if (res.ok) {
-          alert("You have processed the order successfully!");
-          window.location = "/";
-          cart.clearCartItems();
+          cart.checkoutItems();
         }
       });
     } catch (e) {

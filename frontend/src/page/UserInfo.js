@@ -85,7 +85,10 @@ export default function UserInfo(props) {
         <p style={{ marginBottom: "20px" }}>
           <b>This is user info page meaning you have already signed in</b>
         </p>
-        <p>Below is your user info in the system</p>
+        <p style={{ marginBottom: "30px" }}>
+          <i>Click the user to check the user profile for processed orders</i>
+        </p>
+        <h3>Below is your user info in the system</h3>
         {userState && (
           <Card>
             <ul>
@@ -106,9 +109,9 @@ export default function UserInfo(props) {
           <Button onClick={handleLogout}>Log out</Button>
         </div>
 
-        <p style={{ margin: "30px" }}>
+        <h3 style={{ margin: "30px" }}>
           Below are all the user info in the system
-        </p>
+        </h3>
         <div style={{ display: "inline" }}>
           {allUserState.length > 0 &&
             allUserState.map((each, index) => {

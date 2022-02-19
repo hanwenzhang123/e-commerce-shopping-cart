@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 import Navbar from "./component/Navbar.js";
+import AuthContext from "./store/auth-context";
+
 import Homepage from "./page/Homepage.js";
 import Product from "./page/Product.js";
 import ShoppingCart from "./page/ShoppingCart.js";
@@ -10,7 +12,8 @@ import CreateUser from "./page/CreateUser.js";
 import SigninUser from "./page/SigninUser.js";
 import UserInfo from "./page/UserInfo.js";
 import ProductList from "./page/ProductList.js";
-import AuthContext from "./store/auth-context";
+import OrderDetail from "./page/OrderDetail.js";
+import UserProfile from "./page/UserProfile.js";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -28,17 +31,25 @@ function App() {
           path="/"
           element={<Homepage isLoggedIn={isLoggedIn} search={search} />}
         />
-        <Route exact path="/product" element={<Product />} />
-        <Route path="/product/:id" element={<ProductList />} />
         <Route
           exact
           path="/cart"
           element={<ShoppingCart isLoggedIn={isLoggedIn} user={user} />}
         />
+        <Route exact path="/product" element={<Product />} />
+        <Route path="/product/:id" element={<ProductList />} />
         <Route
           exact
           path="/user"
           element={isLoggedIn ? <UserInfo /> : <Navigate to="/signup" />}
+        />
+        <Route
+          path="/user/:id"
+          element={isLoggedIn ? <UserProfile /> : <Navigate to="/signup" />}
+        />
+        <Route
+          path="/order/:id"
+          element={isLoggedIn ? <OrderDetail /> : <Navigate to="/signup" />}
         />
         <Route
           exact

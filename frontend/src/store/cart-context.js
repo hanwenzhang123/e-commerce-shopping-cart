@@ -8,6 +8,7 @@ const CartContext = React.createContext({
   deleteItem: (item) => {},
   deleteAllItems: (item) => {},
   clearCartItems: () => {},
+  checkoutItems: () => {},
 });
 
 const retrieveStoredInfo = () => {
@@ -72,7 +73,18 @@ export const CartContextProvider = (props) => {
     setItems([]);
     localStorage.removeItem("count");
     localStorage.removeItem("items");
+
     alert("Shopping cart cleared! Return back to homepage!");
+    window.location = "/";
+  };
+
+  const afterCheckoutHandler = () => {
+    setCount(0);
+    setItems([]);
+    localStorage.removeItem("count");
+    localStorage.removeItem("items");
+
+    alert("You have processed the order successfully!");
     window.location = "/";
   };
 
@@ -83,6 +95,7 @@ export const CartContextProvider = (props) => {
     deleteItem: deleteCartHandler,
     deleteAllItems: deleteAllItemsHandler,
     clearCartItems: clearCartHandler,
+    checkoutItems: afterCheckoutHandler,
   };
 
   return (
