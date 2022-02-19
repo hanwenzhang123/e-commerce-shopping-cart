@@ -1,23 +1,24 @@
-const Product = require("../models/productDB.js");
+const Order = require("../models/orderDB.js");
 
 const displayUserOrderInfo = async (req, res) => {
   try {
     const id = req.params.id || req.query.id;
-    const product = await Product.findOne({ _id: id }, (err, data) => {
-      if (err) res.status(404);
-      if (!data) {
-        res.status(404);
-      } else {
-        return {
-          id: data._id,
-          title: data.title,
-          description: data.description,
-          quantity: data.quantity,
-          price: data.price,
-        };
-      }
+
+    const order = await Order.find({ createdBy: id }).populate("createdBy");
+
+    if (!order) res.status(404);
+
+    const results = order.map((each) => {
+      return {
+        id: each._id,
+        order: each.order,
+        total: each.total,
+        createdBy: each.createdBy,
+        createdAt: each.createdAt,
+      };
     });
-    res.json(product);
+
+    res.json(results);
   } catch (error) {
     console.log(error);
     res.render("404");

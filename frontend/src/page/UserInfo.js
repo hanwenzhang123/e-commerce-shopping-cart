@@ -4,6 +4,7 @@ import Card from "../UI/Card.js";
 import { Container, Button } from "../UI/CommonStyle.js";
 import Spinner from "../UI/Spinner.js";
 import AuthContext from "../store/auth-context";
+import FaceIcon from "@mui/icons-material/Face";
 
 export default function UserInfo(props) {
   const [loading, setLoading] = useState(false);
@@ -79,14 +80,16 @@ export default function UserInfo(props) {
     auth.logout();
   };
 
+  const goProfilePage = (id) => {
+    console.log(id);
+    window.location = "/user/" + id;
+  };
+
   return (
     <React.Fragment>
       <Container>
         <p style={{ marginBottom: "20px" }}>
           <b>This is user info page meaning you have already signed in</b>
-        </p>
-        <p style={{ marginBottom: "30px" }}>
-          <i>Click the user to check the user profile for processed orders</i>
         </p>
         <h3>Below is your user info in the system</h3>
         {userState && (
@@ -112,22 +115,40 @@ export default function UserInfo(props) {
         <h3 style={{ margin: "30px" }}>
           Below are all the user info in the system
         </h3>
+        <p style={{ marginBottom: "30px" }}>
+          <i>
+            Click the face icon to check the user profile for processed orders!
+          </i>
+        </p>
         <div style={{ display: "inline" }}>
           {allUserState.length > 0 &&
             allUserState.map((each, index) => {
               return (
                 <Card key={index}>
-                  <ul>
-                    <li>
-                      First Name: <b>{each.firstName}</b>
-                    </li>
-                    <li>
-                      Last Name: <b>{each.lastName}</b>
-                    </li>
-                    <li>
-                      Email: <b>{each.email}</b>
-                    </li>
-                  </ul>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <div>
+                      <FaceIcon
+                        onClick={() => goProfilePage(each.id)}
+                        style={{
+                          marginRight: "20px",
+                          fontSize: "50px",
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <ul>
+                        <li>
+                          First Name: <b>{each.firstName}</b>
+                        </li>
+                        <li>
+                          Last Name: <b>{each.lastName}</b>
+                        </li>
+                        <li>
+                          Email: <b>{each.email}</b>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </Card>
               );
             })}
