@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Container, Button } from "../UI/CommonStyle.js";
 import Card from "../UI/Card.js";
 import Spinner from "../UI/Spinner.js";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 export default function UserProfile(props) {
   const [loading, setLoading] = useState(false);
@@ -70,17 +71,26 @@ export default function UserProfile(props) {
     return formattedDate;
   };
 
+  const goOrderDetails = (id) => {
+    window.location = "/order/" + id;
+  };
+
   return (
     <React.Fragment>
       <Container>
         {userInfo ? (
-          <h2 style={{ marginBottom: "20px" }}>
-            You are viewing{" "}
-            <span style={{ fontSize: "30px", margin: "10px" }}>
-              {userInfo.firstName}
-            </span>
-            's profile page
-          </h2>
+          <div style={{ textAlign: "center" }}>
+            <h2>
+              You are viewing{" "}
+              <span style={{ fontSize: "30px", margin: "10px" }}>
+                {userInfo.firstName}
+              </span>
+              's profile page
+            </h2>
+            <p style={{ margin: "30px" }}>
+              <i>Click the info icon to check the order details!</i>
+            </p>
+          </div>
         ) : (
           <div style={{ textAlign: "center", margin: "30px" }}>
             <h1>No orders found from the selected user!</h1>
@@ -91,23 +101,33 @@ export default function UserProfile(props) {
             userOrder.map((each, index) => {
               return (
                 <Card key={index}>
-                  <p>
-                    Order placed on: <b>{timeFormatting(each.createdAt)}</b>
-                  </p>
-                  <p>
-                    Total Spent: <b>${each.total}</b>
-                  </p>
-                  <p>Order details:</p>
-                  <ul style={{ marginLeft: "30px" }}>
-                    {each.order.map((order, index) => {
-                      return (
-                        <li key={index}>
-                          {order.quantity} <b>{order.title}</b> at $
-                          {order.price} each.
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <div>
+                      <p>
+                        Order placed on: <b>{timeFormatting(each.createdAt)}</b>
+                      </p>
+                      <p>
+                        Total Spent: <b>${each.total}</b>
+                      </p>
+                      <p>Order details:</p>
+                      <ul style={{ marginLeft: "30px" }}>
+                        {each.order.map((order, index) => {
+                          return (
+                            <li key={index}>
+                              {order.quantity} <b>{order.title}</b> at $
+                              {order.price} each.
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                    <div>
+                      <InfoOutlinedIcon
+                        style={{ fontSize: "50px" }}
+                        onClick={() => goOrderDetails(each.id)}
+                      />
+                    </div>
+                  </div>
                 </Card>
               );
             })}

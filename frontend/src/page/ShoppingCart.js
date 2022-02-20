@@ -116,7 +116,7 @@ export default function ShoppingCart(props) {
   };
 
   const databaseUpdate = async (order) => {
-    console.log(order);
+    // console.log(order);
     for (let each of order) {
       const foundItem = cartItemsSearch(each.title);
       const id = foundItem.id;

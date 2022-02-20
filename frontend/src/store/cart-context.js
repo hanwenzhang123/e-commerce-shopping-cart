@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
+import Axios from "axios";
 
 const CartContext = React.createContext({
   cartCount: 0,
@@ -78,14 +79,22 @@ export const CartContextProvider = (props) => {
     window.location = "/";
   };
 
-  const afterCheckoutHandler = () => {
-    setCount(0);
-    setItems([]);
-    localStorage.removeItem("count");
-    localStorage.removeItem("items");
-
-    alert("You have processed the order successfully!");
-    window.location = "/";
+  const afterCheckoutHandler = async () => {
+    await Axios.get("/api/lastOrder")
+      .then((res) => {
+        alert("You have processed the order successfully!");
+        const id = res.data._id;
+        window.location = "/order/" + id;
+      })
+      .then((res) => {
+        setCount(0);
+        setItems([]);
+        localStorage.removeItem("count");
+        localStorage.removeItem("items");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const contextValue = {

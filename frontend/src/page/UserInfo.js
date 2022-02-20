@@ -81,7 +81,6 @@ export default function UserInfo(props) {
   };
 
   const goProfilePage = (id) => {
-    console.log(id);
     window.location = "/user/" + id;
   };
 

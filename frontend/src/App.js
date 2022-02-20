@@ -36,8 +36,15 @@ function App() {
           path="/cart"
           element={<ShoppingCart isLoggedIn={isLoggedIn} user={user} />}
         />
-        <Route exact path="/product" element={<Product />} />
-        <Route path="/product/:id" element={<ProductList />} />
+        <Route
+          exact
+          path="/product"
+          element={isLoggedIn ? <Product /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/product/:id"
+          element={isLoggedIn ? <ProductList /> : <Navigate to="/" />}
+        />
         <Route
           exact
           path="/user"

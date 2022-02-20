@@ -3,10 +3,11 @@ CS602 Final Project: A Shopping Cart Application
 ---
 ## Start the App
 
-1. **Please go to the folder backend, and run `npm start` to start the server**
-2. **Please go to the folder frontend, and run `npm start` to start the server**
+1. **Please run `npm install` to install all the dependencies first**
+2. **Please go to the folder backend, and run `npm start` to start the server**
+3. **Please go to the folder frontend, and run `npm start` to start the server**
 
-- You may no longer need a separate server to run frontend `npm start` in order to start the client, since it is now both run concurrently.
+- Note: You may no longer need a separate server to run frontend `npm start` in order to start the client, since it is now both run concurrently.
 
 ## Running Concurrently
 

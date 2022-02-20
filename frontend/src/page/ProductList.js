@@ -82,7 +82,7 @@ export default function ProductList() {
   const editProduct = (id) => {
     if (isCartItems) {
       alert(
-        "You can not edit product detail when you have items in the cart. Please reset your shopping cart first."
+        "You can not edit product detail when you have items in the cart. Please clear your shopping cart first."
       );
     } else {
       isShowEditForm(!showEditForm);

@@ -59,7 +59,11 @@ export default function Homepage(props) {
   }, [search, initialState]);
 
   const handleClick = (id) => {
-    window.location = "/product/" + id;
+    if (isLoggedIn) {
+      window.location = "/product/" + id;
+    } else {
+      alert("Please log in to add, edit or delete the product!");
+    }
   };
 
   const addToCart = (item) => {
@@ -105,20 +109,33 @@ export default function Homepage(props) {
                         Description: <b>{each.description}</b>
                       </li>
                       <li>
-                        Quantity: <b>{each.quantity}</b>
+                        Quantity:{" "}
+                        <b>{each.quantity ? each.quantity : "Not Available"}</b>
                       </li>
                       <li>
                         Price: <b>${each.price}</b>
                       </li>
                     </ul>
-                    <AddShoppingCartIcon
-                      style={{
-                        position: "relative",
-                        left: "120px",
-                        top: "20px",
-                      }}
-                      onClick={() => addToCart(filteredState[index])}
-                    />
+                    {each.quantity ? (
+                      <AddShoppingCartIcon
+                        style={{
+                          position: "relative",
+                          left: "120px",
+                          top: "20px",
+                        }}
+                        onClick={() => addToCart(filteredState[index])}
+                      />
+                    ) : (
+                      <p
+                        style={{
+                          color: "red",
+                          textAlign: "center",
+                          marginTop: "8px",
+                        }}
+                      >
+                        <b>Please Restock</b>
+                      </p>
+                    )}
                   </Card>
                 );
               })
@@ -140,20 +157,33 @@ export default function Homepage(props) {
                       Description: <b>{each.description}</b>
                     </li>
                     <li>
-                      Quantity: <b>{each.quantity}</b>
+                      Quantity:{" "}
+                      <b>{each.quantity ? each.quantity : "Not Available"}</b>
                     </li>
                     <li>
                       Price: <b>${each.price}</b>
                     </li>
                   </ul>
-                  <AddShoppingCartIcon
-                    style={{
-                      position: "relative",
-                      left: "80%",
-                      top: "15px",
-                    }}
-                    onClick={() => addToCart(initialState[index])}
-                  />
+                  {each.quantity ? (
+                    <AddShoppingCartIcon
+                      style={{
+                        position: "relative",
+                        left: "120px",
+                        top: "20px",
+                      }}
+                      onClick={() => addToCart(initialState[index])}
+                    />
+                  ) : (
+                    <p
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        marginTop: "8px",
+                      }}
+                    >
+                      <b>Please Restock</b>
+                    </p>
+                  )}
                 </Card>
               );
             })
