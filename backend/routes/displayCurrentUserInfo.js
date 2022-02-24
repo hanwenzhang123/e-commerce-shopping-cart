@@ -6,7 +6,7 @@ const displayCurrentUserInfo = async (req, res) => {
     let user = await User.findOne({ _id: id });
     res.json({
       firstName: user.firstName,
-      lastName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
     });
   } catch (error) {
