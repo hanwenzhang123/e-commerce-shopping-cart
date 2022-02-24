@@ -42,7 +42,13 @@ CS602 Final Project: A Shopping Cart Application
 3. > change PID value accordingly
  
 ## Secret Token
+
 ACCESS_TOKEN_SECRET => `require("crypto").randomBytes(64).toString("hex")`
+
+## Version Control
+
+https://github.com/hanwenzhang123/bu-cs602-final-project
+
 ## CS602 Sample Project
 
 Consider a shopping cart application for a merchant’s website. The merchant has a list of products that they sell. Each product has a unique id, name, description, price, and quantity in stock. The application should be able to show the list of all products, search for the products by name/description.
