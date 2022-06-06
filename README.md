@@ -49,6 +49,22 @@ ACCESS_TOKEN_SECRET => `require("crypto").randomBytes(64).toString("hex")`
 
 https://github.com/hanwenzhang123/bu-cs602-final-project
 
+## Boilerplate Code
+
+```js
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+
+mongoose
+  .connect("mongodb://127.0.0.1:27017/mydb", { useNewUrlParser: true })
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
+
+const port = 3000;
+app.listen(port, () => console.log("Server running..."));
+```
+
 ## CS602 Sample Project
 
 Consider a shopping cart application for a merchant’s website. The merchant has a list of products that they sell. Each product has a unique id, name, description, price, and quantity in stock. The application should be able to show the list of all products, search for the products by name/description.
