@@ -2,6 +2,9 @@
 CS602 Final Project: A Shopping Cart Application
 ---
 ## Boilerplate Code
+> npm install express
+> npm install mongodb
+> npm install mongoose
 
 ```js
 const express = require("express");
