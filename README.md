@@ -1,6 +1,22 @@
 ---
 CS602 Final Project: A Shopping Cart Application
 ---
+## Boilerplate Code
+
+```js
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+
+mongoose
+  .connect("mongodb://127.0.0.1:27017/mydb", { useNewUrlParser: true })
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
+
+const port = 3000;
+app.listen(port, () => console.log("Server running..."));
+```
+
 ## Start the App
 
 1. **Please run `npm install` to install all the dependencies first**
@@ -48,22 +64,6 @@ ACCESS_TOKEN_SECRET => `require("crypto").randomBytes(64).toString("hex")`
 ## Version Control
 
 https://github.com/hanwenzhang123/bu-cs602-final-project
-
-## Boilerplate Code
-
-```js
-const express = require("express");
-const mongoose = require("mongoose");
-const app = express();
-
-mongoose
-  .connect("mongodb://127.0.0.1:27017/mydb", { useNewUrlParser: true })
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
-
-const port = 3000;
-app.listen(port, () => console.log("Server running..."));
-```
 
 ## CS602 Sample Project
 
